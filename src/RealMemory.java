@@ -7,6 +7,9 @@ public class RealMemory {
 
     public RealMemory(int size) {
         memory = new Word[size];
+        for(int i = 0; i < size; i++){
+            memory[i] = new Word();
+        }
     }
 
     public Word read(int i){

@@ -5,7 +5,7 @@ public class RM {
 
     public CPU cpu;
     private RealMemory realMemory;
-    private MMU mmu;
+    public MMU mmu;
 
     //private RealMemory externalMemory;
     //private InputDevice inputDevice;
