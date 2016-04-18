@@ -1,6 +1,3 @@
-/**
- * Created by Kostas on 2016-04-15.
- */
 public class CPU {
 
     public final static byte ADD = 1;
@@ -8,15 +5,23 @@ public class CPU {
     public final static byte MUL = 3;
     public final static byte DIV = 4;
     public final static byte MOD = 5;
-    public final static byte MOVXR = 6;
-    public final static byte MOVRX = 7;
-    public final static byte MOVRR = 8;
-    public final static byte HALT = 9;
+    public final static byte MOVR1X = 6;
+    public final static byte MOVR2X = 7;
+    public final static byte MOVXR1 = 8;
+    public final static byte MOVXR2 = 9;
+    //public final static byte MOVRR = 8;
+    //public final static byte HALT = 10;
     public final static byte PUSH = 10;
     public final static byte POP = 11;
-    public final static byte POPX = 12;
-    public final static byte RPUSH = 13;
-    public final static byte RPOP = 14;
+    //public final static byte POPX = 12;
+    //public final static byte RPUSH = 13;
+    //public final static byte RPOP = 14;
+    public final static byte CMP = 12;
+    public final static byte JMP = 13;
+    public final static byte JMPE = 14;
+    public final static byte JMPM = 15;
+    public final static byte JMPL = 16;
+
 
     private int MODE = 0;
     private int R1 = 0;     //bendro naudojimo

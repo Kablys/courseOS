@@ -1,4 +1,3 @@
+CODE
 cmp
-jmp 1234
-mov R1 12\
-7 12
+jmp 123
