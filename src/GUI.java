@@ -37,7 +37,7 @@ public class GUI extends JFrame{
         next_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rm.nextStep();
+                if (!rm.nextStep()) System.exit(777);
                 update();
             }
         });
