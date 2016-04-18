@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
         rm = new RM();
         gui = new GUI(rm);
+        rm.newVM();
 
         JFrame frame = new JFrame("MyForm");
         frame.setContentPane(gui.rootPanel);
@@ -20,7 +21,7 @@ public class Main {
 
         boolean run = true;
 
-        rm.newVM();
+
         //rm.loadProgram();
         rm.cpu.setMODE(1);
 

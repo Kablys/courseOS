@@ -13,14 +13,18 @@ public class MMU {
         this.rm = realMachine;
     }
 
-    public Word read(int pc) {
-        if(cpu.getMODE() == CPU.SUPERVISOR){
-            return memory.read(pc);
+    public Word read(int address) throws Exception {
+        if (cpu.getMODE() == CPU.SUPERVISOR) {
+            return memory.read(address);
         } else {
-            //System.out.println("pc " + pc);
-            int realAddress = virtualToRealAddress(pc);
-            //System.out.println(realAddress);
-            return memory.read(realAddress);
+            if (address > 255) {
+                throw new Exception();
+            } else {
+                //System.out.println("pc " + pc);
+                int realAddress = virtualToRealAddress(address);
+                //System.out.println(realAddress);
+                return memory.read(realAddress);
+            }
         }
     }
 
@@ -34,10 +38,7 @@ public class MMU {
     }
 
     public int virtualToRealAddress(int address){
-        //System.out.println("PUSLAPIAVIMAS " + memory.read(rm.pageTableAddress).getByte(0));
-        //System.out.println("a/16 " + address/16);
         int realBlockNum = memory.read(rm.pageTableAddress + address / 16).getByte(0);
-        //System.out.println("realBlockNum " + realBlockNum);
         return realBlockNum * 16 + address % 16;
     }
 }

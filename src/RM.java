@@ -28,12 +28,29 @@ public class RM {
 
     public void newVM(){
         //PROGRAMOS KODAS
+
         Word w = new Word();
-        w.setByte(0, 1);
+        /*w.setByte(0, 1);
         realMemory.write(0, w);
         w.setByte(0, 3);
         realMemory.write(1, w);
         w.setByte(0, 5);
+        realMemory.write(2, w);*/
+
+        w = w.intToWord(11);
+        realMemory.write(20, w);
+        w = w.intToWord(25);
+        realMemory.write(21, w);
+
+        w.setByte(0, 6);
+        w.setByte(1, 20);
+        w.setByte(2, 1);
+        realMemory.write(0, w);
+        w.setByte(0, 6);
+        w.setByte(1, 21);
+        w.setByte(2, 2);
+        realMemory.write(1, w);
+        w.setByte(0, 1);
         realMemory.write(2, w);
 
         //PUSLAPIAVIMAS
@@ -41,6 +58,8 @@ public class RM {
             w.setByte(0, i);
             realMemory.write(pageTableAddress + i, w);
         }
+
+        cpu.setSP(255); //steko pointeris
 
 
 
@@ -77,18 +96,28 @@ public class RM {
 
     public boolean nextStep(){
         cpu.step();
-        proccessInterrupts();
-        return true;
+        return proccessInterrupts();
+        //return true;
     }
 
-    private void proccessInterrupts() {
-        if(cpu.getPI() == 1){
+    private boolean proccessInterrupts() { //TODO: apdoroti interupt'us. grąžinti 1 - kai ograma tęsiama, 0 - kai stabdoma
+        if(cpu.getPI() == 1){ //atminties apsauga
+            return false;
+        } else if (cpu.getPI() == 2){ //neegzistuoja operacijos kodas
+            return false;
+        } else if (cpu.getPI() == 3){ //neužtenka atminties išoriniam diske
+            return false;
+        } else if(cpu.getSI() == 1){ //input
+            return true;
+        } else if (cpu.getSI() == 2){ //output
+            return true;
+        } else if (cpu.getSI() == 3){ //HALT
+            return false;
+        } else if (cpu.getTI() == 0){ //taimeris
+            cpu.setTI(20);
+        }
 
-        } else if (cpu.getPI() == 2){
-
-        } else if (cpu.getPI() == 3){
-
-        } //else if ...
+        return true;
     }
 
     public CPU getCPU() {

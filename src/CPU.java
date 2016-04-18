@@ -48,79 +48,86 @@ public class CPU {
 
 
     public void step() {
-        interpretCommand(mmu.read(PC));
+        //Word cmd = mmu.read(PC);
+        try {
+            interpretCommand(mmu.read(PC));
+        } catch (Exception exeption){
+            setPI(1);
+        }
         TI--; // po kiekvienos instrukcijos
     }
 
     private void interpretCommand(Word word) {
         PC++;
         byte command = word.getByte(0);
+        try{
+            switch (command){
+                case ADD: {
+                    setR1(R1 + R2);
+                    break;
+                }
+                case SUB: {
+                    setR1(R1 - R2);
+                    break;
+                }
+                case MUL: {
+                    setR1(R1 * R2);
+                    break;
+                }
+                case DIV: {
+                    setR1(R1 / R2);
+                    break;
+                }
+                case MOD: {
+                    setR1(R1 % R2);
+                    break;
+                }
+                case MOVXR: {
+                    int x = word.getByte(1);
+                    int r = word.getByte(2);
+                    if(r == 1){
+                        setR1(Word.wordToInt(mmu.read(x)));
+                    } else if (r == 2) {
+                        setR2(Word.wordToInt(mmu.read(x)));
+                    } else {
+                        System.out.println("error MOVXR");
+                    }
+                    break;
+                }
+                case MOVRX: {
 
-        switch (command){
-            case ADD: {
-                System.out.println("ADD done");
-                break;
-            }
-            case SUB: {
+                }
+                case MOVRR: {
 
-            }
-            case MUL: {
-                System.out.println("MUL done");
-                break;
-            }
-            case DIV: {
+                }
+                case HALT: {
+                    SI = 3;
+                    break;
+                }
+                case PUSH: {
 
-            }
-            case MOD: {
-                System.out.println("MOD done");
-                break;
-            }
-            case MOVXR: {
+                }
+                case POP: {
 
-            }
-            case MOVRX: {
+                }
+                case POPX: {
 
-            }
-            case MOVRR: {
+                }
+                case RPUSH:{
 
-            }
-            case HALT: {
+                }
+                case RPOP: {
 
+                }
+                default: {
+                    PI = 2;
+                    break;
+                }
             }
-            case PUSH: {
-
-            }
-            case POP: {
-
-            }
-            case POPX: {
-
-            }
-            case RPUSH:{
-
-            }
-            case RPOP: {
-
-            }
-            default: {
-                PI = 2;
-                break;
-            }
+        } catch (Exception ex) {
+            PI = 1;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
