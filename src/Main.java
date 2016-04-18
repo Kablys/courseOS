@@ -1,29 +1,34 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import javax.swing.*;
 
+/**
+ * Created by Kostas on 2016-04-15.
+ */
 public class Main {
-    public static void main (String args[]) {
 
-        //TEST
+    private static RM rm;
+    private static GUI gui;
 
-        try{
-//            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//
-//            String input;
-//
-//            while((input=br.readLine())!=null){
-//                System.out.println(input);
-//            }
-            Assembler cpu = new Assembler();
-            Path path = Paths.get("test.txt");
-            // TODO reikia po eilute perkelti i atminti.
-            Files.lines(path).forEachOrdered(line -> cpu.execute(line.toUpperCase().split(" ")));
+    public static void main(String[] args) {
+        rm = new RM();
+        gui = new GUI(rm);
 
-        }catch(IOException io){
-            io.printStackTrace();
-        }
+        JFrame frame = new JFrame("MyForm");
+        frame.setContentPane(gui.rootPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
+        boolean run = true;
+
+        rm.newVM();
+        //rm.loadProgram();
+        rm.cpu.setMODE(1);
+
+        /*int i = 0;
+        while (i < 3) {
+            run = rm.nextStep(); // gražins false, kai pabaiga
+            gui.update();
+            i++;
+        }*/
     }
-
 }

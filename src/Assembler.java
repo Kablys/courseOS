@@ -78,7 +78,7 @@ public class Assembler {
     }
 
     private void jmp(String s) {
-        cpu.setIC(Integer.parseInt(s));
+        //cpu.setIC(Integer.parseInt(s));
         IC = Integer.parseInt(s);
     }
 
@@ -114,9 +114,9 @@ public class Assembler {
         TI = Integer.parseInt(ti);
     }
 
-    public Integer setIC(Integer vmAddr){
+    /*public Integer setIC(Integer vmAddr){
         mmu.conver(vmAddr);
 
 
-    }
+    }*/
 }

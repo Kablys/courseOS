@@ -54,23 +54,26 @@ public class CPU {
 
     private void interpretCommand(Word word) {
         PC++;
-        //byte command = word.getByte(0 /*kelintas žodžio baitas*/ );
+        byte command = word.getByte(0);
 
         switch (command){
             case ADD: {
-
+                System.out.println("ADD done");
+                break;
             }
             case SUB: {
 
             }
             case MUL: {
-
+                System.out.println("MUL done");
+                break;
             }
             case DIV: {
 
             }
             case MOD: {
-
+                System.out.println("MOD done");
+                break;
             }
             case MOVXR: {
 
