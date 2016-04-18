@@ -1,38 +1,37 @@
+/**
+ * Created by Kostas on 2016-04-15.
+ */
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Arrays;
-
 
 public class Word {
-    public static final int SIZE = 4; //bytes
-    private final byte[] data;
+    private static final int SIZE = 4; //numbet or bytes
+    private byte[] data;
 
-    public Word(){
+    public Word() {
         data = new byte[SIZE];
+        data[0] = 0;
+        data[1] = 0;
+        data[2] = 0;
+        data[3] = 0;
     }
 
     public Word(Word src){
         data = src.data.clone();
     }
 
-    public byte getByte(int index){
-        return data[index];
-    }
-    public void setByte(int index, byte info){
-        data[index] = info;
-    }
     @Override
     public Word clone(){
         return new Word(this);
     }
 
-    public boolean equals(Word another){
-        return Arrays.equals(data, another.data);
+    public byte getByte(int i) {
+        return data[i];
     }
 
-    byte[] getBytes() {
-        return Arrays.copyOf(data, SIZE);
+    public void setByte(int i, int d){
+        data[i] = (byte)d;
     }
 
     public static int wordToInt(Word word) {
