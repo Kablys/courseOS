@@ -11,7 +11,6 @@ public class Assembler {
 
     public Assembler(String filename) {
         Path path = Paths.get("test.txt");
-        // TODO reikia po eilute perkelti i atminti.
         try (BufferedReader br = new BufferedReader(new FileReader(String.valueOf(path)))) {
             String[] line;
             String s;
@@ -75,7 +74,6 @@ public class Assembler {
                                 } else if (line[2].equals("R2")) {
                                     program.add(simpleIns(9, Integer.parseInt(line[1])));
                                 }
-
                             }
                             break;
                         // Stack
@@ -121,8 +119,7 @@ public class Assembler {
                 }
             }
             for (Word w: program){
-
-
+                //realMemory.write(pageTableAddress + i, w);
             }
             System.out.println("test");
 
