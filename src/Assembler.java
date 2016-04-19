@@ -106,6 +106,9 @@ public class Assembler {
                         case "JMPL":
                             program.add(simpleIns(16, Integer.parseInt(line[1])));
                             break;
+                        case "HALT":
+                            program.add(simpleIns(17, Integer.parseInt(line[0])));
+                            break;
                         // I/O
                         case "RD":
                             break;

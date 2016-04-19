@@ -10,7 +10,7 @@ public class CPU {
     public final static byte MOVXR1 = 8;
     public final static byte MOVXR2 = 9;
     //public final static byte MOVRR = 8;
-    //public final static byte HALT = 10;
+
     public final static byte PUSH = 10;
     public final static byte POP = 11;
     //public final static byte POPX = 12;
@@ -21,6 +21,7 @@ public class CPU {
     public final static byte JMPE = 14;
     public final static byte JMPM = 15;
     public final static byte JMPL = 16;
+    public final static byte HALT = 17;
 
 
     private int MODE = 0;
@@ -109,10 +110,10 @@ public class CPU {
 //                case MOVRR: {
 //
 //                }
-//                case HALT: {
-//                    SI = 3;
-//                    break;
-//                }
+               case HALT: {
+                    SI = 3;
+                    break;
+                }
                 case PUSH: {
 
                 }
