@@ -4,7 +4,7 @@
 public class RM {
 
     public CPU cpu;
-    private RealMemory realMemory;
+    public RealMemory realMemory;
     public MMU mmu;
 
     //private RealMemory externalMemory;
@@ -37,21 +37,21 @@ public class RM {
         w.setByte(0, 5);
         realMemory.write(2, w);*/
 
-        w = w.intToWord(11);
-        realMemory.write(20, w);
-        w = w.intToWord(25);
-        realMemory.write(21, w);
-
-        w.setByte(0, 6);
-        w.setByte(1, 20);
-        w.setByte(2, 1);
-        realMemory.write(0, w);
-        w.setByte(0, 6);
-        w.setByte(1, 21);
-        w.setByte(2, 2);
-        realMemory.write(1, w);
-        w.setByte(0, 1);
-        realMemory.write(2, w);
+//        w = w.intToWord(11);
+//        realMemory.write(20, w);
+//        w = w.intToWord(25);
+//        realMemory.write(21, w);
+//
+//        w.setByte(0, 6);
+//        w.setByte(1, 20);
+//        w.setByte(2, 1);
+//        realMemory.write(0, w);
+//        w.setByte(0, 6);
+//        w.setByte(1, 21);
+//        w.setByte(2, 2);
+//        realMemory.write(1, w);
+//        w.setByte(0, 1);
+//        realMemory.write(2, w);
 
         //PUSLAPIAVIMAS
         for(int i = 0; i < 16; i++){

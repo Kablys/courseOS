@@ -10,10 +10,10 @@ import java.util.List;
 
 public class Assembler {
 
-    MMU mmu;
+    RM rm;
 
     public Assembler(RM rm, String filename) {
-        this.mmu = rm.mmu;
+        this.rm = rm;
         Path path = Paths.get("test.txt");
         try (BufferedReader br = new BufferedReader(new FileReader(String.valueOf(path)))) {
             String[] line;
@@ -123,11 +123,15 @@ public class Assembler {
                 }
             }
             for (Integer addr : data.keySet()) {
+                rm.realMemory.write(addr, data.get(addr));
                 //System.out.println(addr, data.get(addr));
 
 
             }
+            int i = 0;
             for (Word w : program) {
+                rm.realMemory.write(i, w);
+                i++;
                 //realMemory.write(pageTableAddress + i, w);
             }
 

@@ -2,7 +2,6 @@ import javax.swing.*;
 
 public class Main {
 
-        Assembler cpu = new Assembler("test.txt");
     private static RM rm;
     private static GUI gui;
 
