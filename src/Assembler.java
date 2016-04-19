@@ -82,11 +82,11 @@ public class Assembler {
                             break;
                         // Stack
                         case "PUSH":
-                            instruction.setByte(0, (byte) 10);
+                            program.add(simpleIns(10, 3));
                             program.add(instruction);
                             break;
                         case "POP":
-                            instruction.setByte(0, (byte) 11);
+                            program.add(simpleIns(11, 3));
                             program.add(instruction);
                             break;
                         // Control
@@ -107,7 +107,13 @@ public class Assembler {
                             program.add(simpleIns(16, Integer.parseInt(line[1])));
                             break;
                         case "HALT":
-                            program.add(simpleIns(17, Integer.parseInt(line[0])));
+                            program.add(simpleIns(17, 0));
+                            break;
+                        case "RPOP":
+                            program.add(simpleIns(19, Integer.parseInt(line[1])));
+                            break;
+                        case "RPUSH":
+                            program.add(simpleIns(18, Integer.parseInt(line[1])));
                             break;
                         // I/O
                         case "RD":
