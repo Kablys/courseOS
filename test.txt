@@ -1,6 +1,7 @@
 DATA
-100 1
-101 2
+20 1
+21 2
 CODE
-cmp
-jmp 123
+MOV 20 R1
+MOV 21 R2
+ADD

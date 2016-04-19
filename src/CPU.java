@@ -100,13 +100,11 @@ public class CPU {
                 }
                 case MOVR1X: {
                     int x = word.getByte(3);
-                    //getR1()
-
+                    mmu.write(Word.intToWord(getR1()), x);
                 }
                 case MOVR2X: {
                     int x = word.getByte(3);
-                    //getR1()
-
+                    mmu.write(Word.intToWord(getR2()), x);
                 }
 //                case MOVRR: {
 //
