@@ -32,6 +32,7 @@ public class CPU {
     private int TI = 0;     //timer'is
     private int SI = 0;     //supervizorinių pertraukimų registras
     private int PI = 0;     //programinių pertraukimų registras
+    private int C = 0;
     private int CH1 = 0;
     private int CH2 = 0;
     private int CH3 = 0;
@@ -87,42 +88,83 @@ public class CPU {
                     setR1(R1 % R2);
                     break;
                 }
-                case MOVXR: {
-                    int x = word.getByte(1);
-                    int r = word.getByte(2);
-                    if(r == 1){
-                        setR1(Word.wordToInt(mmu.read(x)));
-                    } else if (r == 2) {
-                        setR2(Word.wordToInt(mmu.read(x)));
-                    } else {
-                        System.out.println("error MOVXR");
-                    }
+                case MOVXR1: {
+                    int x = word.getByte(3);
+                    setR1(Word.wordToInt(mmu.read(x)));
                     break;
                 }
-                case MOVRX: {
-
-                }
-                case MOVRR: {
-
-                }
-                case HALT: {
-                    SI = 3;
+                case MOVXR2: {
+                    int x = word.getByte(3);
+                    setR2(Word.wordToInt(mmu.read(x)));
                     break;
                 }
+                case MOVR1X: {
+                    int x = word.getByte(3);
+                    //getR1()
+
+                }
+                case MOVR2X: {
+                    int x = word.getByte(3);
+                    //getR1()
+
+                }
+//                case MOVRR: {
+//
+//                }
+//                case HALT: {
+//                    SI = 3;
+//                    break;
+//                }
                 case PUSH: {
 
                 }
                 case POP: {
 
                 }
-                case POPX: {
-
+//                case POPX: {
+//
+//                }
+//                case RPUSH:{
+//
+//                }
+//                case RPOP: {
+//
+//                }
+                case CMP: {
+                    if(getR1() == getR1()){
+                        setC(0);
+                    }else if (getR1() > getR1()){
+                        setC(1);
+                    }else {
+                        setC(2);
+                    }
                 }
-                case RPUSH:{
-
+                case JMP: {
+                    int x = word.getByte(3);
+                    //todo pakeisti sita eilute vietoje mmu.read(x)
+                    setPC(Word.wordToInt(mmu.read(x)));
+                    break;
                 }
-                case RPOP: {
-
+                case JMPE: {
+                    if(getC() == 0){
+                        int x = word.getByte(3);
+                        setPC(Word.wordToInt(mmu.read(x)));
+                    }
+                    break;
+                }
+                case JMPM: {
+                    if(getC() == 1){
+                        int x = word.getByte(3);
+                        setPC(Word.wordToInt(mmu.read(x)));
+                    }
+                    break;
+                }
+                case JMPL: {
+                    if(getC() == 2){
+                        int x = word.getByte(3);
+                        setPC(Word.wordToInt(mmu.read(x)));
+                    }
+                    break;
                 }
                 default: {
                     PI = 2;
@@ -133,12 +175,6 @@ public class CPU {
             PI = 1;
         }
     }
-
-
-
-
-
-
 
     public int getMODE() {
         return MODE;
@@ -162,6 +198,14 @@ public class CPU {
 
     public void setR2(int r2) {
         R2 = r2;
+    }
+
+    public int getC() {
+        return C;
+    }
+
+    public void setC(int C) {
+        this.C = C;
     }
 
     public int getPC() {

@@ -1,4 +1,6 @@
 DATA
+100 1
+101 2
 CODE
 cmp
 jmp 123

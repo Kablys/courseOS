@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Assembler {
@@ -15,34 +16,34 @@ public class Assembler {
             String[] line;
             String s;
             List<Word> program = new ArrayList<Word>();
+            HashMap<Integer, Word> data = new HashMap<Integer, Word>();
             //program.add(new Word());
             Boolean dataPart = false;
             Boolean codePart = false;
             while ((s = br.readLine()) != null) {
                 line = s.toUpperCase().split(" ");
-                if (line[0].equals("DATA" )) {
-                    if (dataPart == false){
+                if (line[0].equals("DATA")) {
+                    if (dataPart == false) {
                         dataPart = true;
-                    }
-                    else{
+                    } else {
                         System.out.println("There can't be more than one DATA");
                         System.exit(1);
                     }
 
-                }else if (line[0].equals("CODE") ) {
-                    if (codePart == false){
+                } else if (line[0].equals("CODE")) {
+                    if (codePart == false) {
                         codePart = true;
-                    }
-                    else{
+                    } else {
                         System.out.println("There can't be more than one CODE");
                         System.exit(1);
                     }
 
-                }else if (codePart == false){
+                } else if (codePart == false) {
                     //read data
-                }else {
+                    data.put(Integer.parseInt(line[0]),// address
+                            Word.intToWord(Integer.parseInt(line[1])));// Integer
+                } else {
                     //read code
-                    System.out.println("s");
                     Word instruction = new Word();
                     switch (line[0]) {
                         // Arithmetic
@@ -65,9 +66,9 @@ public class Assembler {
                         case "MOV":
                             if (line[1].equals("R1")) {
                                 program.add(simpleIns(6, Integer.parseInt(line[1])));
-                            }else if(line[1].equals("R2")) {
+                            } else if (line[1].equals("R2")) {
                                 program.add(simpleIns(7, Integer.parseInt(line[1])));
-                            }else {
+                            } else {
                                 if (line[2].equals("R1")) {
                                     program.add(simpleIns(8, Integer.parseInt(line[1])));
 
@@ -78,16 +79,16 @@ public class Assembler {
                             break;
                         // Stack
                         case "PUSH":
-                            instruction.setByte(0, (byte)10);
+                            instruction.setByte(0, (byte) 10);
                             program.add(instruction);
                             break;
                         case "POP":
-                            instruction.setByte(0, (byte)11);
+                            instruction.setByte(0, (byte) 11);
                             program.add(instruction);
                             break;
                         // Control
                         case "CMP":
-                            instruction.setByte(0, (byte)12);
+                            instruction.setByte(0, (byte) 12);
                             program.add(instruction);
                             break;
                         case "JMP":
@@ -107,7 +108,7 @@ public class Assembler {
                             break;
                         case "WR":
                             break;
-                            // Register
+                        // Register
                         case "CHMOD":
                             break;
                         case "SETTI":
@@ -118,91 +119,25 @@ public class Assembler {
 
                 }
             }
-            for (Word w: program){
+            for (Integer addr : data.keySet()) {
+                //System.out.println(addr, data.get(addr));
+
+
+            }
+            for (Word w : program) {
                 //realMemory.write(pageTableAddress + i, w);
             }
-            System.out.println("test");
 
-    } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public Word simpleIns(int instructionCode, int addr){
+
+    public Word simpleIns(int instructionCode, int addr) {
         Word instruction = new Word();
-        instruction.setByte(0, (byte)instructionCode);
-        instruction.setByte(3, (byte)addr);
+        instruction.setByte(0, (byte) instructionCode);
+        instruction.setByte(3, (byte) addr);
         return instruction;
 
     }
-
-
-//    private void cmp() {
-//        if(R1 == R2){
-//            C = 0;
-//        }else if (R1 > R2){
-//            C = 1;
-//        }else {
-//            C = 2;
-//        }
-//        System.out.println("cmp");
-//    }
-//
-//    private void jmpe(String s) {
-//        if(C == 0){
-//            IC = Integer.parseInt(s);
-//        }
-//    }
-//    private void jmpm(String s) {
-//        if(C == 1){
-//            IC = Integer.parseInt(s);
-//        }
-//    }
-//    private void jmpl(String s) {
-//        if(C == 2){
-//            IC = Integer.parseInt(s);
-//        }
-//    }
-//
-//    private void jmp(String s) {
-//        cpu.setIC(Integer.parseInt(s));
-//        IC = Integer.parseInt(s);
-//    }
-//
-//    private void chmod() {
-//        if (MODE == true){
-//            MODE = false;
-//        }else {
-//            MODE = true;
-//        }
-//    }
-//
-//    private void mod() {
-//        R1 = R1 % R2;
-//    }
-//
-//    private void div() {
-//        R1 = R1 / R2;
-//    }
-//
-//    private void mul() {
-//        R1 = R1 * R2;
-//    }
-//
-//    private void sub() {
-//        R1 = R1 - R2;
-//    }
-//
-//    private void add() {
-//        R1 = R1 + R2;
-//    }
-//
-//    public void setti(String ti) {
-//        TI = Integer.parseInt(ti);
-//    }
-//
-//    public Integer setIC(Integer vmAddr){
-//        mmu.conver(vmAddr);
-//
-//
-//    }
 }
