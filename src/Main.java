@@ -9,11 +9,13 @@ public class Main {
     public static void main(String[] args) {
         //Sita eilute testuoti assembleriui
         //jeigu nereikia galima uzkomentuoti
-        Assembler cpu = new Assembler("test.txt");
+
 
         rm = new RM();
         gui = new GUI(rm);
         rm.newVM();
+
+        Assembler cpu = new Assembler(rm, "test.txt");
 
         JFrame frame = new JFrame("MyForm");
         frame.setContentPane(gui.rootPanel);

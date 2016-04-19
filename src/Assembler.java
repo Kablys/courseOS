@@ -10,7 +10,10 @@ import java.util.List;
 
 public class Assembler {
 
-    public Assembler(String filename) {
+    MMU mmu;
+
+    public Assembler(RM rm, String filename) {
+        this.mmu = rm.mmu;
         Path path = Paths.get("test.txt");
         try (BufferedReader br = new BufferedReader(new FileReader(String.valueOf(path)))) {
             String[] line;
